@@ -88,14 +88,14 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            script {
-                dir("${env.WORKSPACE}") {
-                    sh 'docker-compose -f docker-compose.jenkins.yml down --remove-orphans -v'
-                    sh 'docker-compose -f docker-compose.jenkins.yml ps'
-                }
-            }
-        }
-    }
+    // post {
+    //     always {
+    //         script {
+    //             dir("${env.WORKSPACE}") {
+    //                 sh 'docker-compose -f docker-compose.jenkins.yml down --remove-orphans -v'
+    //                 sh 'docker-compose -f docker-compose.jenkins.yml ps'
+    //             }
+    //         }
+    //     }
+    // }
 }
