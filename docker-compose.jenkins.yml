@@ -1,0 +1,72 @@
+version: "3.7"
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        user: laraveluser
+        uid: 1000
+    image: laravel-app-image
+    container_name: laravel-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - /var/jenkins_home/workspace/GSB Covoiturage CICD:/var/www
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
+    labels:
+      - "project=gsb_covoiturage"
+    env_file:
+      - .env
+    networks:
+      - gsb_covoiturage_network
+
+  db:
+    image: mysql:8.0
+    container_name: laravel-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    labels:
+      - "project=gsb_covoiturage"
+    networks:
+      - gsb_covoiturage_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: laravel-nginx
+    restart: unless-stopped
+    ports:
+      - 9587:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    labels:
+      - "project=gsb_covoiturage"
+    networks:
+      - gsb_covoiturage_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 6742:80
+    labels:
+      - "project=gsb_covoiturage"
+    networks:
+      - gsb_covoiturage_network
+
+networks:
+  gsb_covoiturage_network:
+    external: true

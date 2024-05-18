@@ -70,7 +70,8 @@ pipeline {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
-                        sh 'docker-compose run --rm app composer install'
+                        // Using the custom docker-compose file for Jenkins
+                        sh 'docker-compose -f docker-compose.jenkins.yml run --rm app composer install'
                     }
                 }
             }
