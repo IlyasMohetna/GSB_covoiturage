@@ -33,6 +33,15 @@ pipeline {
                 }
             }
         }
+        stage('Show workspace content') {
+            steps {
+                script {
+                    dir("${env.WORKSPACE}") {
+                        sh 'ls -la'
+                    }
+                }
+            }
+        }
         stage("Start Docker") {
             steps {
                 script {
