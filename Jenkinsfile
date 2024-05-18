@@ -39,36 +39,60 @@ pipeline {
         }
         stage("Start Docker") {
             steps {
-                sh 'docker-compose up -d'
-                sh 'docker-compose ps'
+                script {
+                    dir("${env.WORKSPACE}") {
+                        sh 'docker-compose up -d'
+                        sh 'docker-compose ps'
+                    }
+                }
             }
         }
         stage('List Docker Volume Contents') {
             steps {
-                sh 'docker-compose run --rm app ls -la /var/www'
+                script {
+                    dir("${env.WORKSPACE}") {
+                        sh 'docker-compose run --rm app ls -la /var/www'
+                    }
+                }
             }
         }
         stage('Verify Directory') {
             steps {
-                sh 'pwd'
-                sh 'ls -la'
+                script {
+                    dir("${env.WORKSPACE}") {
+                        sh 'pwd'
+                        sh 'ls -la'
+                    }
+                }
             }
         }
         stage("Run Composer Install") {
             steps {
-                sh 'docker-compose run --rm app composer install'
+                script {
+                    dir("${env.WORKSPACE}") {
+                        sh 'docker-compose run --rm app composer install'
+                    }
+                }
             }
         }
         stage("Run Tests") {
             steps {
-                sh 'docker-compose run --rm app php artisan test'
+                script {
+                    dir("${env.WORKSPACE}") {
+                        sh 'docker-compose run --rm app php artisan test'
+                    }
+                }
             }
         }
     }
     post {
         always {
-            sh 'docker-compose down --remove-orphans -v'
-            sh 'docker-compose ps'
+            script {
+                dir("${env.WORKSPACE}") {
+                    sh 'docker-compose down --remove-orphans -v'
+                    sh 'docker-compose ps'
+                }
+            }
         }
     }
 }
