@@ -1,7 +1,4 @@
 pipeline {
-    environment {
-        DOCKER_COMPOSE_CMD = 'docker-compose -f docker-compose.jenkins.yml'
-    }
     agent any
     stages {
         stage("Verify tooling") {
@@ -16,7 +13,7 @@ pipeline {
         stage('Populate .env file') {
             steps {
                 script {
-                    def envFilePath = '/var/jenkins_home/workspace/.env'
+                    def envFilePath = '/var/jenkins_home/workspace/.env' // Ensure this path is correct
                     def targetPath = "${env.WORKSPACE}/.env"
                     sh "cp \"${envFilePath}\" \"${targetPath}\""
                 }
@@ -25,18 +22,14 @@ pipeline {
         stage("Clear application containers") {
             steps {
                 script {
-                    try {
-                        sh '''
-                            CONTAINER_IDS=$(docker ps -a -q --filter "label=project=gsb_covoiturage")
-                            if [ ! -z "$CONTAINER_IDS" ]; then
-                                docker rm -f $CONTAINER_IDS
-                            else
-                                echo "No containers to remove"
-                            fi
-                        '''
-                    } catch (Exception e) {
-                        echo 'No running container to clear up...'
-                    }
+                    sh '''
+                        CONTAINER_IDS=$(docker ps -a -q --filter "label=project=gsb_covoiturage")
+                        if [ ! -z "$CONTAINER_IDS" ]; then
+                            docker rm -f $CONTAINER_IDS
+                        else
+                            echo "No containers to remove"
+                        fi
+                    '''
                 }
             }
         }
@@ -44,8 +37,8 @@ pipeline {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
-                        sh "${env.DOCKER_COMPOSE_CMD} up -d"
-                        sh "${env.DOCKER_COMPOSE_CMD} ps"
+                        sh 'docker-compose -f docker-compose.jenkins.yml up -d'
+                        sh 'docker-compose -f docker-compose.jenkins.yml ps'
                     }
                 }
             }
@@ -54,7 +47,7 @@ pipeline {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
-                        sh "${env.DOCKER_COMPOSE_CMD} --rm app ls -la /var/www"
+                        sh 'docker-compose -f docker-compose.jenkins.yml run --rm app ls -la /var/www'
                     }
                 }
             }
@@ -73,7 +66,7 @@ pipeline {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
-                        sh "${env.DOCKER_COMPOSE_CMD} run --rm app composer install"
+                        sh 'docker-compose -f docker-compose.jenkins.yml run --rm app composer install'
                     }
                 }
             }
@@ -82,7 +75,7 @@ pipeline {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
-                        sh "${env.DOCKER_COMPOSE_CMD} run --rm app php artisan test"
+                        sh 'docker-compose -f docker-compose.jenkins.yml run --rm app php artisan test'
                     }
                 }
             }
@@ -92,8 +85,8 @@ pipeline {
         always {
             script {
                 dir("${env.WORKSPACE}") {
-                    sh "${env.DOCKER_COMPOSE_CMD} down --remove-orphans -v"
-                    sh "${env.DOCKER_COMPOSE_CMD} ps"
+                    sh 'docker-compose -f docker-compose.jenkins.yml down --remove-orphans -v'
+                    sh 'docker-compose -f docker-compose.jenkins.yml ps'
                 }
             }
         }
