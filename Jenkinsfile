@@ -45,7 +45,7 @@ pipeline {
         }
         stage('List Workspace Contents') {
             steps {
-                sh 'ls -la /var/jenkins_home/workspace/GSB Covoiturage CICD'
+                sh 'ls -la "/var/jenkins_home/workspace/GSB Covoiturage CICD"'
             }
         }
         stage("Run Composer Install") {
