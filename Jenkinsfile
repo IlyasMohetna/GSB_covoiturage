@@ -43,6 +43,18 @@ pipeline {
                 }
             }
         }
+        stage('Check Workspace Permissions') {
+            steps {
+                script {
+                    dir("${env.WORKSPACE}") {
+                        sh 'ls -la'
+                        // Check ownership and permissions explicitly
+                        sh 'whoami'
+                        sh 'groups'
+                    }
+                }
+            }
+        }
         stage("Start Docker") {
             steps {
                 script {
@@ -58,15 +70,6 @@ pipeline {
                 script {
                     dir("${env.WORKSPACE}") {
                         sh 'docker-compose -f docker-compose.jenkins.yml run --rm app ls -la /var/www'
-                    }
-                }
-            }
-        }
-        stage('Check /var/www in Docker Container') {
-            steps {
-                script {
-                    dir("${env.WORKSPACE}") {
-                        sh 'docker-compose -f docker-compose.jenkins.yml run --rm app ls -al /var/www'
                     }
                 }
             }
