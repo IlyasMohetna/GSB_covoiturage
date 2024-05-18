@@ -23,4 +23,8 @@ RUN mkdir -p /home/$user/.composer && \
 
 WORKDIR /var/www
 
+COPY . /var/www
+
 USER $user
+
+RUN composer install --no-scripts --no-autoloader
