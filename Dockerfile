@@ -22,10 +22,7 @@ RUN docker-php-ext-configure zip
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- \
-  --install-dir=/usr/local/bin --filename=composer && chmod +x /usr/local/bin/composer
-
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Create system user
 RUN useradd -G www-data,root -u $uid -d /home/$user $user
@@ -33,12 +30,7 @@ RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
 # Set working directory
-COPY . /var/www
-
 WORKDIR /var/www
-
-RUN chown -R www-data:www-data /var/www
-RUN chmod -R 755 /var/www/storage
 
 # Switch to non-root user
 USER $user
