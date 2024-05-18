@@ -1,6 +1,16 @@
 pipeline {
     agent any
     stages {
+        stage('Check Workspace Path and Contents') {
+            steps {
+                script {
+                    dir("${env.WORKSPACE}") {
+                        sh 'echo "Current workspace path: ${PWD}"'
+                        sh 'ls -la'
+                    }
+                }
+            }
+        }
         stage("Verify tooling") {
             steps {
                 sh '''
@@ -52,12 +62,11 @@ pipeline {
                 }
             }
         }
-        stage('Verify Directory') {
+        stage('Check /var/www in Docker Container') {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
-                        sh 'pwd'
-                        sh 'ls -la'
+                        sh 'docker-compose -f docker-compose.jenkins.yml run --rm app ls -al /var/www'
                     }
                 }
             }
