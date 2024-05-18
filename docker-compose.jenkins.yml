@@ -16,8 +16,6 @@ services:
       - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
     labels:
       - "project=gsb_covoiturage"
-    env_file:
-      - .env
     networks:
       - gsb_covoiturage_network
 
