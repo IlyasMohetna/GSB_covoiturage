@@ -73,6 +73,7 @@ pipeline {
         stage('Clear Config and Cache') {
             steps {
                 script {
+                    sh 'docker-compose -f docker-compose.jenkins.yml run --rm app php artisan optimize:clear'
                     sh 'docker-compose -f docker-compose.jenkins.yml run --rm app php artisan config:clear'
                     sh 'docker-compose -f docker-compose.jenkins.yml run --rm app php artisan cache:clear'
                 }
