@@ -43,6 +43,11 @@ pipeline {
                 sh 'docker-compose ps'
             }
         }
+        stage('List Workspace Contents') {
+            steps {
+                sh 'ls -la /var/jenkins_home/workspace/GSB Covoiturage CICD'
+            }
+        }
         stage("Run Composer Install") {
             steps {
                 sh 'docker-compose run --rm app composer install'
