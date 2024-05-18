@@ -15,7 +15,7 @@ services:
             - ./:/var/www
             - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
         networks:
-            - gsb_covoiturage
+            - gsb_covoiturage_network
 
     db:
         image: mysql:8.0
@@ -31,7 +31,7 @@ services:
         volumes:
             - ./docker-compose/mysql:/docker-entrypoint-initdb.d
         networks:
-            - gsb_covoiturage
+            - gsb_covoiturage_network
 
     nginx:
         image: nginx:alpine
@@ -43,7 +43,7 @@ services:
             - ./:/var/www
             - ./docker-compose/nginx:/etc/nginx/conf.d/
         networks:
-            - gsb_covoiturage
+            - gsb_covoiturage_network
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
@@ -55,8 +55,8 @@ services:
         ports:
             - 6742:80
         networks:
-            - gsb_covoiturage
+            - gsb_covoiturage_network
 
 networks:
-    gsb_covoiturage:
+    gsb_covoiturage_network:
         external: true
