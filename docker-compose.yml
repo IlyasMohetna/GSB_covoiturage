@@ -14,6 +14,8 @@ services:
         volumes:
             - ./:/var/www
             - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
+        labels:
+            - "project=gsb_covoiturage"
         networks:
             - gsb_covoiturage_network
 
@@ -30,6 +32,8 @@ services:
             SERVICE_NAME: mysql
         volumes:
             - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+        labels:
+            - "project=gsb_covoiturage"
         networks:
             - gsb_covoiturage_network
 
@@ -42,6 +46,8 @@ services:
         volumes:
             - ./:/var/www
             - ./docker-compose/nginx:/etc/nginx/conf.d/
+        labels:
+            - "project=gsb_covoiturage"
         networks:
             - gsb_covoiturage_network
 
@@ -54,6 +60,8 @@ services:
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
         ports:
             - 6742:80
+        labels:
+            - "project=gsb_covoiturage"
         networks:
             - gsb_covoiturage_network
 
