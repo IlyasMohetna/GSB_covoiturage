@@ -6,11 +6,10 @@ pipeline {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
-                        // Display current workspace and contents
-                        sh 'echo "Current workspace path: $(pwd)"'
-                        sh 'ls -la'
-                        // Copy the .env file to the workspace
-                        sh 'cp /var/jenkins_home/workspace/.env ${env.WORKSPACE}/.env'
+                        sh '''
+                        echo "Current workspace path: $(pwd)"
+                        ls -la
+                        '''
                     }
                 }
             }
