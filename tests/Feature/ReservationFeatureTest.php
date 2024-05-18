@@ -28,6 +28,10 @@ class ReservationFeatureTest extends TestCase
 
     public function test_create_reservation_feature()
     {
+        logger()->info('Environment: ' . app()->environment());
+        logger()->info('DB Connection: ' . config('database.default'));
+        logger()->info('DB Database: ' . config('database.connections.mysql.database'));
+
         $ville1 = Ville::first();
         $ville2 = Ville::skip(1)->first();
 
@@ -65,6 +69,10 @@ class ReservationFeatureTest extends TestCase
         $employeeCode = auth()->user()->code_employe;
 
         $response = $this->post(route('covoiturage.annonce_reserver_action'), $data);
+        if ($response->status() === 419) {
+            logger()->error('Test failed with status 419. Response: ' . $response->getContent());
+        }
+
         $response->assertStatus(302);
         $response->assertRedirect(route('covoiturage.reservation_confirmed_show'));
 
