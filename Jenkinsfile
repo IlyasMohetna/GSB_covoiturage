@@ -44,8 +44,6 @@ pipeline {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
-                        sh 'docker-compose up -d'
-                        sh 'docker-compose ps'
                         sh "${env.DOCKER_COMPOSE_CMD} up -d"
                         sh "${env.DOCKER_COMPOSE_CMD} ps"
                     }
