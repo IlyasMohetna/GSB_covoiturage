@@ -1,6 +1,11 @@
 pipeline {
     agent any
     stages {
+        stage('Cleanup Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
         stage("Verify tooling") {
             steps {
                 sh '''
