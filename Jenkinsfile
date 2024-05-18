@@ -10,6 +10,15 @@ pipeline {
                 '''
             }
         }
+        stage('Populate .env file') {
+            steps {
+                script {
+                    def envFilePath = '/var/jenkins_home/workspace/.env'
+                    def targetPath = "${env.WORKSPACE}/.env"
+                    sh "cp ${envFilePath} ${targetPath}"
+                }
+            }
+        }
         stage("Clear application containers") {
             steps {
                 script {
