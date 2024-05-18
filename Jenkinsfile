@@ -14,7 +14,14 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'docker rm -f $(docker ps -a -q --filter "label=project=gsb_covoiturage")'
+                        sh '''
+                            CONTAINER_IDS=$(docker ps -a -q --filter "label=project=gsb_covoiturage")
+                            if [ ! -z "$CONTAINER_IDS" ]; then
+                                docker rm -f $CONTAINER_IDS
+                            else
+                                echo "No containers to remove"
+                            fi
+                        '''
                     } catch (Exception e) {
                         echo 'No running container to clear up...'
                     }
