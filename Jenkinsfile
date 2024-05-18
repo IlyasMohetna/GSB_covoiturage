@@ -15,7 +15,7 @@ pipeline {
                 script {
                     def envFilePath = '/var/jenkins_home/workspace/.env'
                     def targetPath = "${env.WORKSPACE}/.env"
-                    sh "cp ${envFilePath} ${targetPath}"
+                    sh "cp \"${envFilePath}\" \"${targetPath}\""
                 }
             }
         }
