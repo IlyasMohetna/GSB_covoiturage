@@ -91,10 +91,10 @@ pipeline {
     post {
         always {
             script {
-                // dir("${env.WORKSPACE}") {
-                //     sh 'docker-compose -f docker-compose.jenkins.yml down --remove-orphans -v'
-                //     sh 'docker-compose -f docker-compose.jenkins.yml ps'
-                // }
+                dir("${env.WORKSPACE}") {
+                    echo 'Skipping docker-compose down to keep containers running'
+                    sh 'docker-compose -f docker-compose.jenkins.yml ps'
+                }
             }
         }
     }
