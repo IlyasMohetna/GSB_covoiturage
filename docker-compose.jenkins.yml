@@ -45,7 +45,7 @@ services:
     ports:
       - 9587:80
     volumes:
-      - /var/jenkins_home/workspace/GSB Covoiturage CICD:/var/www
+      - .:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     labels:
       - "project=gsb_covoiturage"
