@@ -48,6 +48,12 @@ pipeline {
                 sh 'docker-compose run --rm app ls -la /var/www'
             }
         }
+        stage('Verify Directory') {
+            steps {
+                sh 'pwd'
+                sh 'ls -la'
+            }
+        }
         stage("Run Composer Install") {
             steps {
                 sh 'docker-compose run --rm app composer install'
