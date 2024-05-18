@@ -20,6 +20,5 @@ class DatabaseSeeder extends Seeder
         $this->call(EmployeSeeder::class);
         $this->call(VehiculeSeeder::class);
         $this->call(RolesSeeder::class);
-        // $this->call(ParametrageVilleTableSeeder::class);
     }
 }

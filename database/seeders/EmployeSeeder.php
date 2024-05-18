@@ -16,9 +16,9 @@ class EmployeSeeder extends Seeder
     {
 
         \DB::table('employe')->delete();
-        
+
         \DB::table('employe')->insert(array (
-            0 => 
+            0 =>
             array (
                 'code_employe' => 1,
                 'prenom' => 'Ilyas',
@@ -29,12 +29,12 @@ class EmployeSeeder extends Seeder
                 'date_naissance' => '2023-12-08',
                 'date_embauche' => '2023-12-08',
                 'derniere_connexion' => NULL,
-                'id_agence' => 1,
+                'id_agence' => Fonction::inRandomOrder()->first()->code_fonction,
                 'code_fonction' => 1,
                 'created_at' => '2023-12-09 10:35:19',
                 'updated_at' => '2023-12-09 10:35:19',
             ),
-            1 => 
+            1 =>
             array (
                 'code_employe' => 2,
                 'prenom' => 'Lionel',
@@ -45,12 +45,12 @@ class EmployeSeeder extends Seeder
                 'date_naissance' => '2023-12-24',
                 'date_embauche' => '2023-12-24',
                 'derniere_connexion' => NULL,
-                'id_agence' => 7,
+                'id_agence' => Fonction::inRandomOrder()->first()->code_fonction,
                 'code_fonction' => 2,
                 'created_at' => '2023-12-24 11:02:22',
                 'updated_at' => '2023-12-24 11:02:22',
             ),
-            3 => 
+            3 =>
             array (
                 'code_employe' => 3,
                 'prenom' => 'Critiano',
@@ -61,13 +61,13 @@ class EmployeSeeder extends Seeder
                 'date_naissance' => '2023-12-24',
                 'date_embauche' => '2023-12-24',
                 'derniere_connexion' => NULL,
-                'id_agence' => 7,
+                'id_agence' => Fonction::inRandomOrder()->first()->code_fonction,
                 'code_fonction' => 2,
                 'created_at' => '2023-12-24 11:02:22',
                 'updated_at' => '2023-12-24 11:02:22',
             )
         ));
-        
-        
+
+
     }
 }
