@@ -7,6 +7,8 @@ use App\Services\VehiculeService;
 use App\Services\TrajetService;
 use App\Services\ReservationService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+use App\Models\Trajet;
 
 class CovoiturageController extends Controller
 {
@@ -161,7 +163,6 @@ class CovoiturageController extends Controller
         if (!$trajet) {
             return response()->json(['error' => 'Trajet not found'], 404);
         }
-
         $data = [
             'id_etape_depart' => $request->modal_etape_depart,
             'id_etape_arrive' => $request->modal_etape_arrive,
