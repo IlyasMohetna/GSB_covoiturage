@@ -28,6 +28,7 @@ class ReservationFeatureTest extends TestCase
 
     public function test_create_reservation_feature()
     {
+        // OK
         logger()->info('Environment: ' . app()->environment());
         logger()->info('DB Connection: ' . config('database.default'));
         logger()->info('DB Database: ' . config('database.connections.mysql.database'));
