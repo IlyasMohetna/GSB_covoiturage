@@ -82,7 +82,7 @@ pipeline {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
-                        sh 'docker-compose -f docker-compose.jenkins.yml run --rm app php artisan test'
+                        sh 'docker-compose -f docker-compose.jenkins.yml run --rm app php artisan test --env=testing'
                     }
                 }
             }
