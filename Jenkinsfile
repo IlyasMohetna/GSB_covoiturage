@@ -1,4 +1,7 @@
 pipeline {
+    environment {
+        DOCKER_COMPOSE_CMD = 'docker-compose -f docker-compose.jenkins.yml'
+    }
     agent any
     stages {
         stage("Verify tooling") {
@@ -70,8 +73,7 @@ pipeline {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
-                        // Using the custom docker-compose file for Jenkins
-                        sh 'docker-compose -f docker-compose.jenkins.yml run --rm app composer install'
+                        sh "${env.DOCKER_COMPOSE_CMD} run --rm app composer install"
                     }
                 }
             }
@@ -80,7 +82,7 @@ pipeline {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
-                        sh 'docker-compose run --rm app php artisan test'
+                        sh "${env.DOCKER_COMPOSE_CMD} run --rm app php artisan test"
                     }
                 }
             }
@@ -90,8 +92,8 @@ pipeline {
         always {
             script {
                 dir("${env.WORKSPACE}") {
-                    sh 'docker-compose down --remove-orphans -v'
-                    sh 'docker-compose ps'
+                    sh "${env.DOCKER_COMPOSE_CMD} down --remove-orphans -v"
+                    sh "${env.DOCKER_COMPOSE_CMD} ps"
                 }
             }
         }
