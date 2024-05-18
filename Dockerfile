@@ -24,13 +24,16 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Create system user
+# Create system user to run commands
 RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
-RUN chown -R www-data:www-data /var/www
-RUN chmod -R 755 /var/www/storage
+# Change ownership of /var/www
+RUN mkdir -p /var/www && chown -R $user:$user /var/www
+
+# RUN chown -R www-data:www-data /var/www
+# RUN chmod -R 755 /var/www/storage
 
 # Switch to non-root user
 USER $user
