@@ -43,24 +43,21 @@ pipeline {
                 }
             }
         }
-        stage('Check Workspace Permissions') {
-            steps {
-                script {
-                    dir("${env.WORKSPACE}") {
-                        sh 'ls -la'
-                        // Check ownership and permissions explicitly
-                        sh 'whoami'
-                        sh 'groups'
-                    }
-                }
-            }
-        }
         stage("Start Docker") {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
                         sh 'docker-compose -f docker-compose.jenkins.yml up -d'
                         sh 'docker-compose -f docker-compose.jenkins.yml ps'
+                    }
+                }
+            }
+        }
+        stage('Inspect Docker Environment') {
+            steps {
+                script {
+                    dir("${env.WORKSPACE}") {
+                        sh 'docker-compose -f docker-compose.jenkins.yml run --rm app bash -c "ls -la /var/www && echo Current user: $(whoami) && echo User home: $(echo ~)"'
                     }
                 }
             }
