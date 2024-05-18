@@ -46,6 +46,8 @@ pipeline {
                     dir("${env.WORKSPACE}") {
                         sh 'docker-compose up -d'
                         sh 'docker-compose ps'
+                        sh "${env.DOCKER_COMPOSE_CMD} up -d"
+                        sh "${env.DOCKER_COMPOSE_CMD} ps"
                     }
                 }
             }
@@ -54,7 +56,7 @@ pipeline {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
-                        sh 'docker-compose run --rm app ls -la /var/www'
+                        sh "${env.DOCKER_COMPOSE_CMD} --rm app ls -la /var/www"
                     }
                 }
             }
