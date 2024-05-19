@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Tests\Unit;
 
@@ -42,7 +42,7 @@ class VehiculeServiceTest extends TestCase
             'annee_model' => 2020,
             'photo' => 'photo.jpg',
         ];
-        $employeeCode = '12345';
+        $employeeCode = auth()->user()->code_employe;
 
         $service = new VehiculeService();
         $vehicule = $service->createPersonalVehicule($data, $employeeCode);

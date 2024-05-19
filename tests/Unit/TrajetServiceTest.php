@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Tests\Unit;
 
@@ -32,7 +32,7 @@ class TrajetServiceTest extends TestCase
             'nombre_place_maximum' => 4,
             'id_vehicule' => 1,
         ];
-        $employeeCode = '12345';
+        $employeeCode = auth()->user()->code_employe;
 
         $service = new TrajetService();
         $trajet = $service->createTrajet($data, $employeeCode);

@@ -10,13 +10,12 @@ services:
         image: laravel-app-image
         container_name: laravel-app
         restart: unless-stopped
+        working_dir: /var/www
         volumes:
-            - /var/jenkins_home/workspace/GSB_COVOITURAGE:/var/jenkins_home/workspace/GSB_COVOITURAGE
+            - ./:/var/www
             - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
         labels:
             - "project=gsb_covoiturage"
-        env_file:
-            - .env
         networks:
             - gsb_covoiturage_network
 
@@ -45,7 +44,7 @@ services:
         ports:
             - 9587:80
         volumes:
-            - /var/jenkins_home/workspace/GSB_COVOITURAGE:/var/jenkins_home/workspace/GSB_COVOITURAGE
+            - ./:/var/www
             - ./docker-compose/nginx:/etc/nginx/conf.d/
         labels:
             - "project=gsb_covoiturage"
@@ -65,6 +64,13 @@ services:
             - "project=gsb_covoiturage"
         networks:
             - gsb_covoiturage_network
+
+    composer_installation:
+        container_name: composer_installation
+        image: composer
+        volumes:
+            - ./:/app
+        command: composer install --ignore-platform-reqs
 
 networks:
     gsb_covoiturage_network:
