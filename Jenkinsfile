@@ -42,16 +42,16 @@ pipeline {
                 }
             }
         }
-        stage("Prepare Docker Environment") {
-            steps {
-                script {
-                    // Builds the Docker image ensuring no cache is used, reflects latest code changes
-                    dir("${env.WORKSPACE}") {
-                        sh 'docker-compose -f docker-compose.jenkins.yml build --no-cache'
-                    }
-                }
-            }
-        }
+        // stage("Prepare Docker Environment") {
+        //     steps {
+        //         script {
+        //             // Builds the Docker image ensuring no cache is used, reflects latest code changes
+        //             dir("${env.WORKSPACE}") {
+        //                 sh 'docker-compose -f docker-compose.jenkins.yml build --no-cache'
+        //             }
+        //         }
+        //     }
+        // }
         stage("Start Docker") {
             steps {
                 script {
