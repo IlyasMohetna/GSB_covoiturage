@@ -69,7 +69,7 @@ services:
     container_name: composer_installation
     image: composer
     volumes:
-      - ./:/app
+      - /var/lib/docker/volumes/jenkins_home/_data/workspace/GSB_COVOITURAGE:/app
     command: composer install --ignore-platform-reqs
 
 networks:
