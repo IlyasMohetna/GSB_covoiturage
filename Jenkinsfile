@@ -42,6 +42,15 @@ pipeline {
                 }
             }
         }
+        stage('Show workspace content') {
+            steps {
+                script {
+                    dir("${env.WORKSPACE}") {
+                        sh 'ls -la'
+                    }
+                }
+            }
+        }
         // stage("Prepare Docker Environment") {
         //     steps {
         //         script {
@@ -99,8 +108,7 @@ pipeline {
         always {
             script {
                 dir("${env.WORKSPACE}") {
-                    // Maintains containers for inspection if needed, useful for debugging
-                    echo 'Skipping docker-compose down to keep containers running'
+                    sh 'docker-compose -f docker-compose.jenkins.yml down --remove-orphans -v'
                     sh 'docker-compose -f docker-compose.jenkins.yml ps'
                 }
             }
