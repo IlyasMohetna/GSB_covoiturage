@@ -65,12 +65,12 @@ pipeline {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
-                        sh 'docker-compose -f docker-compose.jenkins.yml down --remove-orphans -v'  // Ensure containers and volumes are removed
+                        // sh 'docker-compose -f docker-compose.jenkins.yml down --remove-orphans -v'  // Ensure containers and volumes are removed
                         // sh 'docker-compose -f docker-compose.jenkins.yml build --no-cache'  // Rebuild images without cache
                         // // sh 'docker-compose -f docker-compose.jenkins.yml up -d'
                         // sh 'docker-compose -f docker-compose.jenkins.yml up -d --force-recreate'
                         // ok
-                        sh 'docker-compose -f docker-compose.jenkins.yml up -d --build'
+                        sh 'docker-compose -f docker-compose.jenkins.yml up -d'
                         sh 'docker-compose -f docker-compose.jenkins.yml ps'
                     }
                 }
