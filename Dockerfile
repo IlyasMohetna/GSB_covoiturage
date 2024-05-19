@@ -33,7 +33,7 @@ RUN mkdir -p /home/$user/.composer && \
 RUN mkdir -p /var/www && chown -R $user:$user /var/www
 
 RUN chown -R www-data:www-data /var/www
-RUN chmod -R 755 /var/www/storage
+# RUN chmod -R 755 /var/www/storage
 
 # Switch to non-root user
 USER $user
