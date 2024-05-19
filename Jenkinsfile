@@ -60,6 +60,7 @@ pipeline {
                         // sh 'docker-compose -f docker-compose.jenkins.yml build --no-cache'  // Rebuild images without cache
                         // // sh 'docker-compose -f docker-compose.jenkins.yml up -d'
                         // sh 'docker-compose -f docker-compose.jenkins.yml up -d --force-recreate'
+                        // ok
                         sh 'docker-compose -f docker-compose.jenkins.yml up -d'
                         sh 'docker-compose -f docker-compose.jenkins.yml ps'
                     }
