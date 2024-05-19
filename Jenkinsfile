@@ -56,8 +56,11 @@ pipeline {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
+                        sh 'docker-compose -f docker-compose.jenkins.yml down --volumes'  // Ensure containers and volumes are removed
+                        sh 'docker-compose -f docker-compose.jenkins.yml build'
                         sh 'docker-compose -f docker-compose.jenkins.yml up -d'
-                        sh 'docker-compose -f docker-compose.jenkins.yml ps'
+                        // sh 'docker-compose -f docker-compose.jenkins.yml up -d'
+                        // sh 'docker-compose -f docker-compose.jenkins.yml ps'
                     }
                 }
             }
