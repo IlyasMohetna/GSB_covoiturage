@@ -1,5 +1,6 @@
 <?php
 
+$var1 = "ok";
 $array = [
     'employe' => [
         'employe',
