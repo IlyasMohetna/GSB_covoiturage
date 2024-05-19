@@ -21,6 +21,9 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-configure zip
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
+# Change ownership of /var/www
+RUN mkdir -p /var/www && chown -R $user:$user /var/www
+
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -29,10 +32,7 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
-# Change ownership of /var/www
-RUN mkdir -p /var/www && chown -R $user:$user /var/www
-
-# RUN chown -R www-data:www-data /var/www
+RUN chown -R www-data:www-data /var/www
 # RUN chmod -R 755 /var/www/storage
 
 # Switch to non-root user
