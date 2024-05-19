@@ -76,13 +76,6 @@ pipeline {
                 }
             }
         }
-        stage('Debug Mounted Volumes') {
-            steps {
-                script {
-                    sh 'docker-compose -f docker-compose.jenkins.yml run --rm app ls -la /var/www/tests/Feature'  // Adjust path as necessary
-                }
-            }
-        }
         stage('Clear Config and Cache') {
             steps {
                 script {
