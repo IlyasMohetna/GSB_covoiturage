@@ -10,9 +10,9 @@ services:
     image: laravel-app-image
     container_name: laravel-app
     restart: unless-stopped
-    working_dir: /var/www
+    working_dir: /var/jenkins_home/workspace/GSB_COVOITURAGE
     volumes:
-      - /var/jenkins_home/workspace/GSB_COVOITURAGE:/var/www
+      - /var/jenkins_home/workspace/GSB_COVOITURAGE:/var/jenkins_home/workspace/GSB_COVOITURAGE
       - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
     labels:
       - "project=gsb_covoiturage"
@@ -44,7 +44,7 @@ services:
     ports:
       - 9587:80
     volumes:
-      - /var/jenkins_home/workspace/GSB_COVOITURAGE:/var/www
+      - /var/jenkins_home/workspace/GSB_COVOITURAGE:/var/jenkins_home/workspace/GSB_COVOITURAGE
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     labels:
       - "project=gsb_covoiturage"
