@@ -68,7 +68,7 @@ pipeline {
         stage('Debug Mounted Volumes') {
             steps {
                 script {
-                    sh 'docker-compose -f docker-compose.jenkins.yml exec app ls -la /var/www/tests'  // Adjust path as necessary
+                    sh 'docker-compose -f docker-compose.jenkins.yml run --rm app ls -la /var/www/tests'  // Adjust path as necessary
                 }
             }
         }
