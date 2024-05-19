@@ -76,6 +76,15 @@ pipeline {
                 }
             }
         }
+        stage("Run Composer Install") {
+            steps {
+                script {
+                    dir("${env.WORKSPACE}") {
+                        sh 'docker-compose -f docker-compose.jenkins.yml run --rm app composer install'
+                    }
+                }
+            }
+        }
         stage('Clear Config and Cache') {
             steps {
                 script {
