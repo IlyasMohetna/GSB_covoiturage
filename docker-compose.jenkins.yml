@@ -10,6 +10,7 @@ services:
     image: laravel-app-image
     container_name: laravel-app
     restart: unless-stopped
+    working_dir: /var/www
     volumes:
       - ${WORKSPACE}:/var/www
       - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
