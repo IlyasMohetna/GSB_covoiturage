@@ -1,16 +1,16 @@
 pipeline {
     agent any
     stages {
-        stage('Cleanup Workspace') {
-            steps {
-                cleanWs()  // Ensures workspace is clean before new checkout
-            }
-        }
-        stage('Checkout Code') {
-            steps {
-                checkout scm  // Fetches the latest code from your SCM
-            }
-        }
+        // stage('Cleanup Workspace') {
+        //     steps {
+        //         cleanWs()  // Ensures workspace is clean before new checkout
+        //     }
+        // }
+        // stage('Checkout Code') {
+        //     steps {
+        //         checkout scm  // Fetches the latest code from your SCM
+        //     }
+        // }
         stage("Verify tooling") {
             steps {
                 sh '''
@@ -56,10 +56,10 @@ pipeline {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
-                        sh 'docker-compose -f docker-compose.jenkins.yml down --volumes'  // Ensure containers and volumes are removed
-                        sh 'docker-compose -f docker-compose.jenkins.yml build --no-cache'  // Rebuild images without cache
-                        // sh 'docker-compose -f docker-compose.jenkins.yml up -d'
-                        sh 'docker-compose -f docker-compose.jenkins.yml up -d --force-recreate'
+                        // sh 'docker-compose -f docker-compose.jenkins.yml down --volumes'  // Ensure containers and volumes are removed
+                        // sh 'docker-compose -f docker-compose.jenkins.yml build --no-cache'  // Rebuild images without cache
+                        // // sh 'docker-compose -f docker-compose.jenkins.yml up -d'
+                        // sh 'docker-compose -f docker-compose.jenkins.yml up -d --force-recreate'
                         // sh 'docker-compose -f docker-compose.jenkins.yml up -d'
                         // sh 'docker-compose -f docker-compose.jenkins.yml ps'
                     }
