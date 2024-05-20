@@ -1,0 +1,79 @@
+version: "3.7"
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        user: laraveluser
+        uid: 1000
+    image: laravel-app-image
+    container_name: gsbcovoiturage-production
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
+    labels:
+      - "project=gsb_covoiturage_production"
+    networks:
+      - gsb_covoiturage_production_network
+
+  db:
+    image: mysql:8.0
+    container_name: gsbcovoiturage-production-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    labels:
+      - "project=gsb_covoiturage_production"
+    networks:
+      - gsb_covoiturage_production_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: gsbcovoiturage-production-nginx
+    restart: unless-stopped
+    ports:
+      - 9587:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    labels:
+      - "project=gsb_covoiturage_production"
+    networks:
+      - gsb_covoiturage_production_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: gsbcovoiturage-production-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 6742:80
+    labels:
+      - "project=gsb_covoiturage_production"
+    networks:
+      - gsb_covoiturage_production_network
+
+  composer_installation:
+    container_name: composer_production_installation
+    image: composer
+    volumes:
+      - ./:/app
+    labels:
+      - "project=gsb_covoiturage_production"
+    command: composer install --ignore-platform-reqs
+
+networks:
+  gsb_covoiturage_production_network:
+    external: true
