@@ -123,6 +123,7 @@ pipeline {
                 dir("${env.WORKSPACE}") {
                     // OK
                     sh 'docker-compose -f docker-compose.jenkins.yml down --remove-orphans -v'
+                    sh 'docker-compose -f docker-compose.prod.yml down --remove-orphans -v'
                     sh 'docker-compose -f docker-compose.jenkins.yml ps'
                 }
             }
