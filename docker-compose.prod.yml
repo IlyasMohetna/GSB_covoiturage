@@ -1,4 +1,5 @@
 version: "3.7"
+name: gsbcovoiturage_production
 services:
   app:
     build:
@@ -42,7 +43,7 @@ services:
     container_name: gsbcovoiturage-production-nginx
     restart: unless-stopped
     ports:
-      - 9587:80
+      - 1234:80
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx-production:/etc/nginx/conf.d/
@@ -59,7 +60,7 @@ services:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
-      - 6742:80
+      - 12345:80
     labels:
       - "project=gsb_covoiturage_production"
     networks:
