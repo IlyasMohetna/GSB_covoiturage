@@ -42,7 +42,7 @@ services:
     container_name: gsbcovoiturage-production-nginx
     restart: unless-stopped
     ports:
-      - 12346:80
+      - 9002:80
     volumes:
       - /var/lib/docker/volumes/jenkins_home/_data/workspace/GSB_COVOITURAGE:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
@@ -59,7 +59,7 @@ services:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
-      - 12345:80
+      - 9001:80
     labels:
       - "project=gsb_covoiturage_production"
     networks:
