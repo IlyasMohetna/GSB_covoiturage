@@ -105,6 +105,17 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to Production') {
+            when {
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
+            steps {
+                script {
+                    sh 'echo "Deploying to production"'
+                    sh 'docker-compose -f docker-compose.prod.yml up -d'
+                }
+            }
+        }
     }
     post {
         always {
