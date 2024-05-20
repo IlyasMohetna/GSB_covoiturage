@@ -45,7 +45,7 @@ services:
       - 12346:80
     volumes:
       - /var/lib/docker/volumes/jenkins_home/_data/workspace/GSB_COVOITURAGE:/var/www
-      - ./docker-compose/nginx_production:/etc/nginx/conf.d/
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
     labels:
       - "project=gsb_covoiturage_production"
     networks:
