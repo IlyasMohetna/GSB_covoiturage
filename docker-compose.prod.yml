@@ -45,7 +45,7 @@ services:
       - 1234:80
     volumes:
       - ./:/var/www
-      - ./docker-compose/nginx-production:/etc/nginx/conf.d/
+      - ./docker-compose/nginx_production:/etc/nginx/conf.d/
     labels:
       - "project=gsb_covoiturage_production"
     networks:
