@@ -16,7 +16,7 @@ pipeline {
                 sh '''
                     docker info
                     docker version
-                    docker-compose version
+                    docker compose version
                 '''
             }
         }
@@ -56,7 +56,7 @@ pipeline {
         //         script {
         //             // Builds the Docker image ensuring no cache is used, reflects latest code changes
         //             dir("${env.WORKSPACE}") {
-        //                 sh 'docker-compose -f docker-compose.jenkins.yml build --no-cache'
+        //                 sh 'docker compose -f docker compose.jenkins.yml build --no-cache'
         //             }
         //         }
         //     }
@@ -65,13 +65,13 @@ pipeline {
             steps {
                 script {
                     dir("${env.WORKSPACE}") {
-                        sh 'docker-compose -f docker-compose.jenkins.yml down --remove-orphans -v'  // Ensure containers and volumes are removed
-                        // sh 'docker-compose -f docker-compose.jenkins.yml build --no-cache'  // Rebuild images without cache
-                        // // sh 'docker-compose -f docker-compose.jenkins.yml up -d'
-                        // sh 'docker-compose -f docker-compose.jenkins.yml up -d --force-recreate'
+                        sh 'docker compose -f docker compose.jenkins.yml down --remove-orphans -v'  // Ensure containers and volumes are removed
+                        // sh 'docker compose -f docker compose.jenkins.yml build --no-cache'  // Rebuild images without cache
+                        // // sh 'docker compose -f docker compose.jenkins.yml up -d'
+                        // sh 'docker compose -f docker compose.jenkins.yml up -d --force-recreate'
                         // ok
-                        sh 'docker-compose -f docker-compose.jenkins.yml up -d --build'
-                        sh 'docker-compose -f docker-compose.jenkins.yml ps'
+                        sh 'docker compose -f docker compose.jenkins.yml up -d --build'
+                        sh 'docker compose -f docker compose.jenkins.yml ps'
                     }
                 }
             }
@@ -80,7 +80,7 @@ pipeline {
         //     steps {
         //         script {
         //             dir("${env.WORKSPACE}") {
-        //                 sh 'docker-compose -f docker-compose.jenkins.yml run --rm app composer install'
+        //                 sh 'docker compose -f docker compose.jenkins.yml run --rm app composer install'
         //             }
         //         }
         //     }
@@ -89,9 +89,9 @@ pipeline {
             steps {
                 script {
                     // Clears Laravel's configuration cache before running tests
-                    sh 'docker-compose -f docker-compose.jenkins.yml run --rm app php artisan optimize:clear'
-                    sh 'docker-compose -f docker-compose.jenkins.yml run --rm app php artisan config:clear'
-                    sh 'docker-compose -f docker-compose.jenkins.yml run --rm app php artisan cache:clear'
+                    sh 'docker compose -f docker compose.jenkins.yml run --rm app php artisan optimize:clear'
+                    sh 'docker compose -f docker compose.jenkins.yml run --rm app php artisan config:clear'
+                    sh 'docker compose -f docker compose.jenkins.yml run --rm app php artisan cache:clear'
                 }
             }
         }
@@ -100,7 +100,7 @@ pipeline {
                 script {
                     dir("${env.WORKSPACE}") {
                         // Ensures tests are run with the testing environment configuration
-                        sh 'docker-compose -f docker-compose.jenkins.yml run --rm app php artisan test --env=testing'
+                        sh 'docker compose -f docker compose.jenkins.yml run --rm app php artisan test --env=testing'
                     }
                 }
             }
@@ -112,7 +112,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo "Deploying to production"'
-                    sh 'docker-compose -f docker-compose.prod.yml -p gsbcovoiturage_production up -d --force-recreate'
+                    sh 'docker compose -f docker compose.prod.yml -p gsbcovoiturage_production up -d --force-recreate'
                 }
             }
         }
@@ -122,9 +122,9 @@ pipeline {
             script {
                 dir("${env.WORKSPACE}") {
                     // OK
-                    sh 'docker-compose -f docker-compose.jenkins.yml down --remove-orphans -v'
-                    sh 'docker-compose -f docker-compose.prod.yml down --remove-orphans -v'
-                    sh 'docker-compose -f docker-compose.jenkins.yml ps'
+                    sh 'docker compose -f docker compose.jenkins.yml down --remove-orphans -v'
+                    sh 'docker compose -f docker compose.prod.yml down --remove-orphans -v'
+                    sh 'docker compose -f docker compose.jenkins.yml ps'
                 }
             }
         }
