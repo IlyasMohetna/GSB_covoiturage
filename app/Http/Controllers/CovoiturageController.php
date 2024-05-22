@@ -171,12 +171,8 @@ class CovoiturageController extends Controller
         $reservation = $this->reservationService->createReservation($trajet->id_trajet, $data, auth()->user()->code_employe);
         $this->reservationService->sendReservationConfirmation($reservation);
 
-        if ($request->has('id_visite')) {
-            return redirect()->route('visite.create_confirmed', ['id_visite' => $request->id_visite]);
-        } else {
-            session(['reservation_success' => true]);
-            return redirect()->route('covoiturage.reservation_confirmed_show');
-        }
+        session(['reservation_success' => true]);
+        return redirect()->route('covoiturage.reservation_confirmed_show');
     }
 
     public function vehicule_perso_available_search_action(Request $request)
