@@ -31,7 +31,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # RUN chown -R www-data:www-data /var/www
 
 RUN chown -R www-data:www-data /var/www
-RUN chown -R www-data:www-data /var/www/storage
+# RUN chown -R www-data:www-data /var/www/storage
 # RUN chmod -R 777 /var/www/storage
 # RUN chown -R www-data:www-data
 # Switch to non-root user
