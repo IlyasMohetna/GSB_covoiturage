@@ -22,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if(config('app.env') === 'production') {
+            \URL::forceScheme('https');
+        }
         Carbon::setLocale(config('app.locale'));
         Pulse::users(function ($ids) {
             return User::findMany($ids)->map(fn ($user) => [
