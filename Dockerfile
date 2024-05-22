@@ -29,6 +29,6 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user
 # RUN useradd -G www-data,root -u $uid -d /home/$user $user && \
 #     mkdir -p /home/$user/.composer /var/www && \
 RUN chown -R $user:$user /var/www
-RUN chmod -R 777 storage/
+RUN chmod -R 777 /var/www/storage/
 # Switch to non-root user
 USER $user
