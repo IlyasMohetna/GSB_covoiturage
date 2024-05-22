@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
@@ -8,7 +8,7 @@ use App\Models\Region;
 use App\Models\Vehicule;
 use App\Models\Agence;
 use App\Models\User;
-use App\Models\EMPLOYE\Fonction;
+use App\Models\Fonction;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -95,7 +95,7 @@ class ParametrageController extends Controller{
     {
         $query = Agence::query();
         $query->with('ville')->get();
-        
+
         return DataTables::of($query)
         ->addColumn('nom', function ($agence) {
             return $agence->nom_agence;

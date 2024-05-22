@@ -124,6 +124,7 @@ class CovoiturageController extends Controller
     public function annonce_search_action(Request $request)
     {
         $id_ville_depart = $request->depart;
+        $id_ville_arrive = $request->arrive;
         $departDate = Carbon::createFromFormat('d/m/Y', $request->datedepart);
 
         $trajets = $this->trajetService->searchTrajets($id_ville_depart, $id_ville_arrive, $departDate);
