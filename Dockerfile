@@ -1,7 +1,7 @@
 FROM php:8.2-fpm
 
-ARG user
-ARG uid
+# ARG user
+# ARG uid
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -25,9 +25,12 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Create system user
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
+# RUN useradd -G www-data,root -u $uid -d /home/$user $user
 # RUN useradd -G www-data,root -u $uid -d /home/$user $user && \
 #     mkdir -p /home/$user/.composer /var/www && \
+# RUN chown -R www-data:www-data /var/www
+
+ADD . /var/www
 RUN chown -R www-data:www-data /var/www
 
 # Switch to non-root user

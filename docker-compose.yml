@@ -3,9 +3,9 @@ services:
         build:
             context: ./
             dockerfile: Dockerfile
-            args:
-                user: laraveluser
-                uid: 1000
+            # args:
+            #     user: laraveluser
+            #     uid: 1000
         image: laravel-app-image
         container_name: laravel-app
         restart: unless-stopped
