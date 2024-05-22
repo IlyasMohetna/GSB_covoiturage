@@ -20,15 +20,15 @@ pipeline {
                 '''
             }
         }
-        stage('Populate .env file') {
-            steps {
-                script {
-                    def envFilePath = '/var/lib/docker/volumes/jenkins_home/_data/workspace/GSB_COVOITURAGE/.env' // Ensure this path is correct
-                    def targetPath = "${env.WORKSPACE}/.env"
-                    sh "cp \"${envFilePath}\" \"${targetPath}\""
-                }
-            }
-        }
+        // stage('Populate .env file') {
+        //     steps {
+        //         script {
+        //             def envFilePath = '/var/lib/docker/volumes/jenkins_home/_data/workspace/GSB_COVOITURAGE/.env' // Ensure this path is correct
+        //             def targetPath = "${env.WORKSPACE}/.env"
+        //             sh "cp \"${envFilePath}\" \"${targetPath}\""
+        //         }
+        //     }
+        // }
         stage("Clear application containers") {
             steps {
                 script {
