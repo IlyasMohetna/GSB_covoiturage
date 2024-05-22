@@ -100,7 +100,7 @@ pipeline {
                 script {
                     dir("${env.WORKSPACE}") {
                         // Ensures tests are run with the testing environment configuration
-                        sh 'docker compose -f docker compose.jenkins.yml run --rm app php artisan test --env=testing'
+                        sh 'docker compose -f docker-compose.jenkins.yml run --rm app php artisan test --env=testing'
                     }
                 }
             }

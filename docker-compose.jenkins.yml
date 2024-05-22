@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
     working_dir: /var/www
     volumes:
-      - /var/lib/docker/volumes/jenkins_home/_data/workspace/GSB_COVOITURAGE:/var/www
+      - /var/lib/jenkins/workspace/GSB COVOITURAGE:/var/www
       - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
     labels:
       - "project=gsb_covoiturage"
@@ -43,7 +43,7 @@ services:
     ports:
       - 9587:80
     volumes:
-      - /var/lib/docker/volumes/jenkins_home/_data/workspace/GSB_COVOITURAGE:/var/www
+      - /var/lib/jenkins/workspace/GSB COVOITURAGE:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     labels:
       - "project=gsb_covoiturage"
@@ -68,7 +68,7 @@ services:
     container_name: composer_installation
     image: composer
     volumes:
-      - /var/lib/docker/volumes/jenkins_home/_data/workspace/GSB_COVOITURAGE:/app
+      - /var/lib/jenkins/workspace/GSB COVOITURAGE:/app
     command: composer install --ignore-platform-reqs
 
 networks:
