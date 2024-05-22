@@ -121,10 +121,9 @@ pipeline {
         always {
             script {
                 dir("${env.WORKSPACE}") {
-                    // OK
-                    sh 'docker compose -f docker compose.jenkins.yml down --remove-orphans -v'
-                    sh 'docker compose -f docker compose.prod.yml down --remove-orphans -v'
-                    sh 'docker compose -f docker compose.jenkins.yml ps'
+                    sh 'docker-compose -f docker-compose.jenkins.yml down --remove-orphans -v'
+                    // sh 'docker-compose -f docker-compose.prod.yml down --remove-orphans -v'
+                    sh 'docker-compose -f docker-compose.jenkins.yml ps'
                 }
             }
         }
