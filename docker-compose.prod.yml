@@ -3,15 +3,15 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-      # args:
-      #   user: laraveluser
-      #   uid: 1000
+      args:
+        user: laraveluser
+        uid: 1000
     image: laravel-app-image
     container_name: gsbcovoiturage-production
     restart: unless-stopped
     working_dir: /var/www
     volumes:
-      - /var/lib/jenkins/workspace/GSB COVOITURAGE:/var/www:rw
+      - /var/lib/jenkins/workspace/GSB COVOITURAGE:/var/www
       - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
     labels:
       - "project=gsb_covoiturage_production"
@@ -43,7 +43,7 @@ services:
     ports:
       - 9002:80
     volumes:
-      - /var/lib/jenkins/workspace/GSB COVOITURAGE:/var/www:rw
+      - /var/lib/jenkins/workspace/GSB COVOITURAGE:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     labels:
       - "project=gsb_covoiturage_production"
@@ -76,3 +76,7 @@ services:
 networks:
   gsb_covoiturage_production_network:
     external: true
+
+volumes:
+  storage_volume:
+    driver: local
