@@ -112,7 +112,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo "Deploying to production"'
-                    sh 'docker compose -f docker compose.prod.yml -p gsbcovoiturage_production up -d --force-recreate'
+                    sh 'docker compose -f docker-compose.prod.yml -p gsbcovoiturage_production up -d --force-recreate'
                 }
             }
         }
