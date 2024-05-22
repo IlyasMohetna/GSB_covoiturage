@@ -116,7 +116,7 @@ pipeline {
                     sh 'echo "Deploying to production"'
                     sh 'docker compose -f docker-compose.prod.yml run --rm app chmod 777 -R /var/www/'
                     sh 'docker compose -f docker-compose.prod.yml -p gsbcovoiturage_production up -d --build'
-                    sh 'docker compose -f docker-compose.prod.yml run --rm app php artisan migrate'
+                    sh 'docker compose -f docker-compose.prod.yml run --rm app php artisan migrate --force'
                     sh 'docker compose -f docker-compose.prod.yml run --rm app composer update'
                 }
             }
