@@ -23,7 +23,7 @@ pipeline {
         stage('Populate .env file') {
             steps {
                 script {
-                    def envFilePath = '/var/jenkins_home/workspace/.env' // Ensure this path is correct
+                    def envFilePath = '/var/lib/docker/volumes/jenkins_home/_data/workspace/GSB_COVOITURAGE/.env' // Ensure this path is correct
                     def targetPath = "${env.WORKSPACE}/.env"
                     sh "cp \"${envFilePath}\" \"${targetPath}\""
                 }
