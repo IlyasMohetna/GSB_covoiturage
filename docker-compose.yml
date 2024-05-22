@@ -3,24 +3,20 @@ services:
         build:
             context: ./
             dockerfile: Dockerfile
-            # args:
-            #     user: laraveluser
-            #     uid: 1000
         image: laravel-app-image
-        container_name: laravel-app
+        container_name: gsbcovoiturage-production
         restart: unless-stopped
-        working_dir: /var/www
         volumes:
-            - ./:/var/www
+            - .:/var/www
             - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
         labels:
-            - "project=gsb_covoiturage"
+            - "project=gsb_covoiturage_production"
         networks:
-            - gsb_covoiturage_network
+            - gsb_covoiturage_production_network
 
     db:
         image: mysql:8.0
-        container_name: laravel-db
+        container_name: gsbcovoiturage-production-db
         restart: unless-stopped
         environment:
             MYSQL_DATABASE: ${DB_DATABASE}
@@ -32,45 +28,47 @@ services:
         volumes:
             - ./docker-compose/mysql:/docker-entrypoint-initdb.d
         labels:
-            - "project=gsb_covoiturage"
+            - "project=gsb_covoiturage_production"
         networks:
-            - gsb_covoiturage_network
+            - gsb_covoiturage_production_network
 
     nginx:
         image: nginx:alpine
-        container_name: laravel-nginx
+        container_name: gsbcovoiturage-production-nginx
         restart: unless-stopped
         ports:
-            - 9587:80
+            - 9002:80
         volumes:
-            - ./:/var/www
+            - .:/var/www
             - ./docker-compose/nginx:/etc/nginx/conf.d/
         labels:
-            - "project=gsb_covoiturage"
+            - "project=gsb_covoiturage_production"
         networks:
-            - gsb_covoiturage_network
+            - gsb_covoiturage_production_network
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
-        container_name: phpmyadmin
+        container_name: gsbcovoiturage-production-phpmyadmin
         restart: unless-stopped
         environment:
             PMA_HOST: db
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
         ports:
-            - 6742:80
+            - 9001:80
         labels:
-            - "project=gsb_covoiturage"
+            - "project=gsb_covoiturage_production"
         networks:
-            - gsb_covoiturage_network
+            - gsb_covoiturage_production_network
 
     composer_installation:
-        container_name: composer_installation
+        container_name: composer_production_installation
         image: composer
         volumes:
-            - ./:/app
+            - .:/app
+        labels:
+            - "project=gsb_covoiturage_production"
         command: composer install --ignore-platform-reqs
 
 networks:
-    gsb_covoiturage_network:
+    gsb_covoiturage_production_network:
         external: true
