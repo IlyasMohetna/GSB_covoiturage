@@ -89,6 +89,7 @@ pipeline {
             steps {
                 script {
                     // Clears Laravel's configuration cache before running tests
+                    sh 'docker compose -f docker-compose.jenkins.yml run --rm app chmod 777 -R /var/www/'
                     sh 'docker compose -f docker-compose.jenkins.yml run --rm app php artisan optimize:clear'
                     sh 'docker compose -f docker-compose.jenkins.yml run --rm app php artisan config:clear'
                     sh 'docker compose -f docker-compose.jenkins.yml run --rm app php artisan cache:clear'
@@ -112,6 +113,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo "Deploying to production"'
+                    sh 'docker compose -f docker-compose.prod.yml run --rm app chmod 777 -R /var/www/'
                     sh 'docker compose -f docker-compose.prod.yml -p gsbcovoiturage_production up -d --build'
                 }
             }
