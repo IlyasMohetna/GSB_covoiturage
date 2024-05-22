@@ -3,13 +3,12 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-      args:
-        user: laraveluser
-        uid: 1000
+      # args:
+      #   user: laraveluser
+      #   uid: 1000
     image: laravel-app-image
     container_name: gsbcovoiturage-production
     restart: unless-stopped
-    user: "www-data:www-data"
     working_dir: /var/www
     volumes:
       - /var/lib/jenkins/workspace/GSB COVOITURAGE:/var/www
@@ -41,7 +40,6 @@ services:
     image: nginx:alpine
     container_name: gsbcovoiturage-production-nginx
     restart: unless-stopped
-    user: "www-data:www-data"
     ports:
       - 9002:80
     volumes:
@@ -78,5 +76,3 @@ services:
 networks:
   gsb_covoiturage_production_network:
     external: true
-
-volumes:
