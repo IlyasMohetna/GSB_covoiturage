@@ -9,6 +9,7 @@ use App\Services\ReservationService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use App\Models\Trajet;
+use App\Http\Requests\CreateVehiculePersoRequest;
 
 class CovoiturageController extends Controller
 {
@@ -91,7 +92,7 @@ class CovoiturageController extends Controller
         return view('covoiturage.vehicule_create');
     }
 
-    public function vehicule_perso_create_action(Request $request)
+    public function vehicule_perso_create_action(CreateVehiculePersoRequest $request)
     {
         $data = $request->only(['immatriculation', 'marque', 'model', 'annee_model', 'photo']);
         $this->vehiculeService->createPersonalvehicule($data, auth()->user()->code_employe);
