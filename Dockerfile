@@ -39,3 +39,7 @@ RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 # RUN chown -R www-data:www-data
 # Switch to non-root user
 # USER $user
+ARG UID=1000
+ARG GID=1000
+
+RUN usermod -u $UID www-data && groupmod -g $GID www-data
