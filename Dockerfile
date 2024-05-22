@@ -29,10 +29,12 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # RUN useradd -G www-data,root -u $uid -d /home/$user $user && \
 #     mkdir -p /home/$user/.composer /var/www && \
 # RUN chown -R www-data:www-data /var/www
-
+WORKDIR /var/www
 RUN chown -R www-data:www-data /var/www
+ADD . /var/www
+# RUN sudo chmod storage
 # RUN chown -R www-data:www-data /var/www/storage
 # RUN chmod -R 777 /var/www/storage
 # RUN chown -R www-data:www-data
 # Switch to non-root user
-USER $user
+# USER $user
