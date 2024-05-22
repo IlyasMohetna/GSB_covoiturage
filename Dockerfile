@@ -29,10 +29,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # RUN useradd -G www-data,root -u $uid -d /home/$user $user && \
 #     mkdir -p /home/$user/.composer /var/www && \
 # RUN chown -R www-data:www-data /var/www
-WORKDIR /var/www
-RUN chown -R www-data:www-data /var/www
-RUN chmod 755 /var/www
 ADD . /var/www
+RUN chown -R www-data:www-data /var/www/storage /var/www
+RUN chmod -R 755 /var/www /var/www/bootstrap
 # RUN sudo chmod storage
 # RUN chown -R www-data:www-data /var/www/storage
 # RUN chmod -R 777 /var/www/storage
