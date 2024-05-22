@@ -90,8 +90,8 @@ pipeline {
                 script {
                     // Clears Laravel's configuration cache before running tests
                     sh 'docker compose -f docker-compose.jenkins.yml run --rm app chmod 777 -R /var/www/'
-                    sh 'docker compose -f docker-compose.jenkins.yml run --rm app php artisan optimize:clear'
                     sh 'docker compose -f docker-compose.jenkins.yml run --rm app composer update'
+                    sh 'docker compose -f docker-compose.jenkins.yml run --rm app php artisan optimize:clear'
                     sh 'docker compose -f docker-compose.jenkins.yml run --rm app php artisan config:clear'
                     sh 'docker compose -f docker-compose.jenkins.yml run --rm app php artisan cache:clear'
                 }
