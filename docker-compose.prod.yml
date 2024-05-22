@@ -76,7 +76,3 @@ services:
 networks:
   gsb_covoiturage_production_network:
     external: true
-
-volumes:
-  storage_volume:
-    driver: local
