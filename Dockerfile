@@ -29,8 +29,5 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user && \
     mkdir -p /home/$user/.composer /var/www && \
     chown -R $user:$user /home/$user /var/www
 
-RUN chown -R laraveluser:www-data /var/www/storage
-RUN chmod -R ug+w /var/www/storage
-
 # Switch to non-root user
 USER $user
