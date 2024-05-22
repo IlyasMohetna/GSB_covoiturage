@@ -30,7 +30,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 #     mkdir -p /home/$user/.composer /var/www && \
 # RUN chown -R www-data:www-data /var/www
 
-ADD . /var/www
 RUN chown -R www-data:www-data /var/www
 RUN chown -R www-data:www-data /var/www/storage
 # RUN chmod -R 777 /var/www/storage
