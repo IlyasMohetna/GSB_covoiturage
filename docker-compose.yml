@@ -4,19 +4,19 @@ services:
             context: ./
             dockerfile: Dockerfile
         image: laravel-app-image
-        container_name: gsbcovoiturage-production
+        container_name: gsbcovoiturage-dev
         restart: unless-stopped
         volumes:
             - .:/var/www
             - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
         labels:
-            - "project=gsb_covoiturage_production"
+            - "project=gsb_covoiturage_dev"
         networks:
-            - gsb_covoiturage_production_network
+            - gsb_covoiturage_dev_network
 
     db:
         image: mysql:8.0
-        container_name: gsbcovoiturage-production-db
+        container_name: gsbcovoiturage-dev-db
         restart: unless-stopped
         environment:
             MYSQL_DATABASE: ${DB_DATABASE}
@@ -28,27 +28,28 @@ services:
         volumes:
             - ./docker-compose/mysql:/docker-entrypoint-initdb.d
         labels:
-            - "project=gsb_covoiturage_production"
+            - "project=gsb_covoiturage_dev"
         networks:
-            - gsb_covoiturage_production_network
+            - gsb_covoiturage_dev_network
 
     nginx:
         image: nginx:alpine
-        container_name: gsbcovoiturage-production-nginx
+        container_name: gsbcovoiturage-dev-nginx
         restart: unless-stopped
         ports:
             - 9002:80
         volumes:
             - .:/var/www
             - ./docker-compose/nginx:/etc/nginx/conf.d/
+            - ./docker-compose/nginx/logs:/var/log/nginx
         labels:
-            - "project=gsb_covoiturage_production"
+            - "project=gsb_covoiturage_dev"
         networks:
-            - gsb_covoiturage_production_network
+            - gsb_covoiturage_dev_network
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
-        container_name: gsbcovoiturage-production-phpmyadmin
+        container_name: gsbcovoiturage-dev-phpmyadmin
         restart: unless-stopped
         environment:
             PMA_HOST: db
@@ -56,19 +57,38 @@ services:
         ports:
             - 9001:80
         labels:
-            - "project=gsb_covoiturage_production"
+            - "project=gsb_covoiturage_dev"
         networks:
-            - gsb_covoiturage_production_network
+            - gsb_covoiturage_dev_network
 
     composer_installation:
-        container_name: composer_production_installation
+        container_name: composer_dev_installation
         image: composer
         volumes:
             - .:/app
         labels:
-            - "project=gsb_covoiturage_production"
+            - "project=gsb_covoiturage_dev"
         command: composer install --ignore-platform-reqs
 
+    fail2ban:
+        build:
+            context: ./docker-compose/fail2ban
+            dockerfile: Dockerfile
+        container_name: fail2ban
+        restart: unless-stopped
+        cap_add:
+            - NET_ADMIN
+        volumes:
+            # - ./docker-compose/fail2ban/filter.d:/etc/fail2ban/filter.d
+            # - ./docker-compose/fail2ban/jail.d:/etc/fail2ban/jail.d
+            # - ./docker-compose/nginx/logs:/var/log/nginx
+            - ./docker-compose/fail2ban/jail.local:/etc/fail2ban/jail.local
+            - ./docker-compose/fail2ban/nginx-access.conf:/etc/fail2ban/filter.d/nginx-access.conf
+            - ./docker-compose/nginx/logs:/var/log/nginx
+        labels:
+            - "project=gsb_covoiturage_dev"
+        network_mode: host
+
 networks:
-    gsb_covoiturage_production_network:
+    gsb_covoiturage_dev_network:
         external: true

@@ -1,0 +1,7 @@
+172.28.0.1 - - [25/May/2024:10:07:34 +0000] "GET / HTTP/1.1" 200 5151 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+172.28.0.1 - - [25/May/2024:10:07:36 +0000] "GET /assets/js/auth-custom.js HTTP/1.1" 404 6622 "http://localhost:9002/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+172.28.0.1 - - [25/May/2024:10:07:38 +0000] "GET /assets/images/media/loader.svg HTTP/1.1" 404 6616 "http://localhost:9002/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+172.28.0.1 - - [25/May/2024:10:07:51 +0000] "GET /.env HTTP/1.1" 418 1139409 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+172.28.0.1 - - [25/May/2024:10:07:58 +0000] "GET / HTTP/1.1" 200 5151 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+172.28.0.1 - - [25/May/2024:10:07:59 +0000] "GET /assets/images/media/loader.svg HTTP/1.1" 404 6622 "http://localhost:9002/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+172.28.0.1 - - [25/May/2024:10:07:59 +0000] "GET /assets/js/auth-custom.js HTTP/1.1" 404 6622 "http://localhost:9002/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"

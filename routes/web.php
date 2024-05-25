@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\HoneyPotController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +38,5 @@ Route::post('/import', [ImportController::class, 'ville_import']);
 include __DIR__.'/auth.php';
 include __DIR__.'/covoiturage.php';
 include __DIR__.'/parametrage.php';
+
+Route::get('{path}', [HoneyPotController::class, '__invoke'])->where('path', '.*');

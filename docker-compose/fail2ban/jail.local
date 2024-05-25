@@ -1,0 +1,16 @@
+[DEFAULT]
+ignoreip = 127.0.0.1/8
+bantime  = 3600
+findtime  = 600
+maxretry = 1
+backend = auto
+
+[sshd]
+enabled = false
+
+[nginx-access]
+enabled = true
+port    = http,https
+filter  = nginx-access
+logpath = /var/log/nginx/access.log
+maxretry = 1

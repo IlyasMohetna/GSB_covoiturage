@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Services;
 
@@ -28,6 +28,6 @@ class ReservationService
 
     public function sendReservationConfirmation($reservation)
     {
-        Mail::to('collaborateur@gsblaboratoire.fr')->send(new CovoiturageConfirmedMail($reservation));
+        Mail::to('ilyas.mohetna@hotmail.com')->send(new CovoiturageConfirmedMail($reservation));
     }
 }
