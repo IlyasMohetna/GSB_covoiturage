@@ -10,9 +10,9 @@
 		<meta http-equiv="imagetoolbar" content="no">
 	</head>
 	<body class="" data-new-gr-c-s-check-loaded="14.1143.0" data-gr-ext-installed="" cz-shortcut-listen="true">
-		<!-- ========== END Switcher  ========== --> <!-- Loader --> 
+		<!-- ========== END Switcher  ========== --> <!-- Loader -->
 		<div id="loader" class="!hidden"> <img src="../assets/images/media/loader.svg" alt=""> </div>
-		<!-- Loader --> 
+		<!-- Loader -->
 		<div class="container">
 			<div class="flex justify-center authentication authentication-basic items-center h-full text-defaultsize text-defaulttextcolor">
 				<div class="grid grid-cols-12">
@@ -33,12 +33,12 @@
                                         @if(null !== Session::get('error'))
                                             <div class="col-span-12">
                                                 <span class="text-danger">Mot de passe ou nom d'utilisateur incorrecte !</span>
-                                            </div>    
+                                            </div>
                                         @endif
 										<div class="xl:col-span-12 col-span-12">
 											<label for="signin-username" class="form-label text-default">
 											    Identifiant
-											</label> 
+											</label>
 											<input type="text" class="form-control form-control-lg w-full !rounded-md" name="utilisateur" id="new-username" placeholder="Identifiant" autocomplete="new-username" >
 										</div>
 										<div class="xl:col-span-12 col-span-12 mb-2">
@@ -46,7 +46,7 @@
 												<input type="password" class="form-control form-control-lg !rounded-s-md" name="password" id="new-password" placeholder="Mot de passe" autocomplete="new-password">
 												<button aria-label="button" class="ti-btn ti-btn-light !rounded-s-none !mb-0" type="button" onclick="createpassword('signin-password',this)" id="button-addon2">
 												<i class="align-middle ri-eye-off-line"></i>
-												</button> 
+												</button>
 											</div>
 											<div class="mt-2">
 												<div class="form-check !ps-0 text-black">
@@ -68,6 +68,7 @@
 							<a href="{{ route('documentation') }}" target="_blank">Lien : Documentation de la base de donnée</a><br>
 							<a href="/request-docs" target="_blank">Lien : Documentation technique des classes</a><br>
 							<a href="/uml" target="_blank">Lien : Diagramme UML des classes</a>
+                            <a href="/audit-qualite" target="_blank">Lien : Audit qualité de la modélisation IHM</a>
 						</div>
 					</div>
 					<div class="xxl:col-span-4 xl:col-span-4 lg:col-span-4 md:col-span-3 sm:col-span-2"></div>

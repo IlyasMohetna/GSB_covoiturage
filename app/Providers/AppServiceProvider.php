@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Laravel\Pulse\Facades\Pulse;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -26,13 +25,5 @@ class AppServiceProvider extends ServiceProvider
             \URL::forceScheme('https');
         }
         Carbon::setLocale(config('app.locale'));
-        Pulse::users(function ($ids) {
-            return User::findMany($ids)->map(fn ($user) => [
-                'id' => $user->code_employe,
-                'name' => $user->prenom.' '.$user->nom,
-                'extra' => $user->email,
-                'avatar' => '',
-            ]);
-        });
     }
 }

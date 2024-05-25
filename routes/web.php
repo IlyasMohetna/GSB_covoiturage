@@ -18,6 +18,11 @@ Route::get('/documentation/db', function(){
     return view('documentation');
 })->name('documentation');
 
+Route::get('/audit-qualite', function(){
+    $file = public_path('');
+    return response()->file();
+})->name('audit');
+
 Route::get('/accueil', function(){
     return view('accueil');
 })->middleware('auth')->name('accueil.show');
