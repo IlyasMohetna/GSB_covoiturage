@@ -170,6 +170,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        App\Providers\LaravelBackupPanelServiceProvider::class,
+
     ])->toArray(),
 
     /*

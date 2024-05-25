@@ -17,7 +17,7 @@ class LaravelBackupPanelServiceProvider extends LaravelBackupPanelApplicationSer
     protected function gate()
     {
         Gate::define('viewLaravelBackupPanel', function ($user = null) {
-            $allowedIps = ['176.161.53.22', '176.142.188.236'];
+            $allowedIps = ['176.161.53.22', '176.142.188.236', '127.0.0.1'];
             return in_array(request()->ip(), $allowedIps);
         });
     }
