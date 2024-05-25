@@ -67,7 +67,7 @@
 						<div class="block" style="background-color:yellow;padding:4%;font-weight:bold">
 							<a href="{{ route('documentation') }}" target="_blank">Lien : Documentation de la base de donnée</a><br>
 							<a href="/request-docs" target="_blank">Lien : Documentation technique des classes</a><br>
-							<a href="/uml" target="_blank">Lien : Diagramme UML des classes</a>
+							<a href="/uml" target="_blank">Lien : Diagramme UML des classes</a><br>
                             <a href="/audit-qualite" target="_blank">Lien : Audit qualité de la modélisation IHM</a>
 						</div>
 					</div>

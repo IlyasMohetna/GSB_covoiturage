@@ -21,8 +21,8 @@ Route::get('/documentation/db', function(){
 })->name('documentation');
 
 Route::get('/audit-qualite', function(){
-    $file = public_path('');
-    return response()->file();
+    $file = public_path('pdf/audit_qualite.pdf');
+    return response()->file($file);
 })->name('audit');
 
 Route::get('/accueil', function(){
