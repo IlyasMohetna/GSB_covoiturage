@@ -71,7 +71,20 @@ class TrajetService
             ->with(['etapes.ville', 'automobiliste.agence.ville', 'automobiliste.fonction'])
             ->select('trajet.*')
             ->distinct();
-            sleep(2);
+
+        /*
+        select distinct trajet.* from `trajet` 
+        inner join etape as depart on depart.id_trajet = trajet.id_trajet
+        where 
+            depart.id_ville = '35387' and date(depart.date_passage) = '2024-05-31' 
+            and depart.date_passage > DATE NOW
+            and exists (
+                select 1 from etape as arrive
+                where arrive.id_trajet` = depart.id_trajet
+                and arrive.id_ville` = 33383 
+                and arrive.ordre_etape > depart.ordre_etape
+            )
+        */
         return $query->get();
     }
 }
