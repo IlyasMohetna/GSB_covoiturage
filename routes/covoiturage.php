@@ -21,7 +21,11 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('/ville', [ParametrageController::class, 'ville_lookup'])->name('covoiturage.ville_lookup');
     Route::get('/departement', [ParametrageController::class, 'departement_lookup'])->name('covoiturage.departement_lookup');
     Route::get('/region', [ParametrageController::class, 'region_lookup'])->name('covoiturage.region_lookup');
-    
+    /* E5 */
+    Route::get('/vehicule/historique_utilisation/{id}', [CovoiturageController::class, 'vehicule_historique_show'])->name('covoiturage.vehicule_historique_show');
+    Route::get('/vehicule/releve_kilometrique/{id}', [CovoiturageController::class, 'vehicule_releve_kilometrique_show'])->name('covoiturage.vehicule_releve_kilometrique_show');
+    Route::post('/vehicule/releve_kilometrique/create/', [CovoiturageController::class, 'vehicule_releve_kilometrique_create'])->name('covoiturage.vehicule_releve_kilometrique_create');
+
     Route::get('/covoiturage/reservation/confirmed', function () {
         if (!session('reservation_success')) {
             return redirect()->route('covoiturage.annonce_search_show');

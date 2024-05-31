@@ -37,12 +37,23 @@
 					    <div class="xl:col-span-4 lg:col-span-6 md:col-span-6 sm:col-span-12 col-span-12">
                             <div class="box product-card">
                                 <div class="box-body">
+                                    <div class="flex space-between">
+                                        <a href="{{ route('covoiturage.vehicule_historique_show', ['id' => $vehicule->id_vehicule]) }}">
+                                            <button type="button" class="ti-btn bg-warning text-white btn-wave !font-medium !me-[0.375rem] !ms-0 !text-[0.85rem] !rounded-[0.35rem] !py-[0.51rem] !px-[0.86rem] shadow-none">
+                                            Historique d'utilisation
+                                        </a>
+                                        </button>
+                                        <a href="{{ route('covoiturage.vehicule_releve_kilometrique_show', ['id' => $vehicule->id_vehicule]) }}">
+                                            <button type="button" class="ti-btn bg-info text-white btn-wave !font-medium !me-[0.375rem] !ms-0 !text-[0.85rem] !rounded-[0.35rem] !py-[0.51rem] !px-[0.86rem] shadow-none">
+                                                Relevé kilométrique
+                                            </button>
+                                        </a>
+                                    </div>
                                     <a href="#" class="product-image">
                                         <div class="h-48 w-full overflow-hidden rounded-md bg-gray-100 flex justify-center items-center">
                                             <img src="{{ $vehicule->photo }}" class="object-contain h-full w-full" alt="...">
                                         </div>
                                     </a>
-                                    
                                     <p class="product-name font-semibold mb-0 flex items-center justify-between">{{ $vehicule->marque }}</p>
                                     <p class="product-description text-[.6875rem] text-[#8c9097] dark:text-white/50 mb-2">{{ $vehicule->model }} - {{ $vehicule->annee_model }}</p>
                                     <p class="mb-1 font-semibold text-[1rem] flex items-center justify-between">{{ $vehicule->immatriculation }}</p>

@@ -22,4 +22,9 @@ class Vehicule extends Model
     {
         return $this->hasOne(Agence::class, 'id_agence', 'id_agence');
     }
+
+    public function releve()
+    {
+        return $this->hasMany(ReleveKilo::class, 'id_vehicule', 'id_vehicule');
+    }
 }

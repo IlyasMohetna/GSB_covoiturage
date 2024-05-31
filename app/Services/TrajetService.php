@@ -70,6 +70,7 @@ class TrajetService
             })
             ->with(['etapes.ville', 'automobiliste.agence.ville', 'automobiliste.fonction'])
             ->select('trajet.*')
+            ->where('code_employe', '!=', auth()->user()->code_employe)
             ->distinct();
 
         /*

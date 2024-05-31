@@ -9,6 +9,8 @@ use App\Services\ReservationService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use App\Models\Trajet;
+use App\Models\Vehicule;
+use App\Models\ReleveKilo;
 use App\Http\Requests\CreateVehiculePersoRequest;
 
 class CovoiturageController extends Controller
@@ -25,6 +27,46 @@ class CovoiturageController extends Controller
         $this->vehiculeService = $vehiculeService;
         $this->trajetService = $trajetService;
         $this->reservationService = $reservationService;
+    }
+
+    public function vehicule_historique_show($id)
+    {
+        $vehicule = Vehicule::where('id_vehicule', $id)->with('trajets')->first();
+        $yearsUsed = $vehicule->trajets
+        ->groupBy(function($date) {
+            return Carbon::parse($date->created_at)->format('Y');
+        })
+        ->map(function($trajets) {
+            return count($trajets);
+        });
+        return view('covoiturage.vehicule_historique', ['yearsUsed' => $yearsUsed]);
+    }
+
+    public function vehicule_releve_kilometrique_show($id)
+    {
+        $vehicule = Vehicule::where('id_vehicule', $id)->with('releve')->first();
+        return view('covoiturage.vehicule_releve', ['vehicule' => $vehicule]);
+    }
+
+    public function vehicule_releve_kilometrique_create(Request $request)
+    {
+        $request->validate([
+            'id_vehicule' => 'required|integer|exists:vehicule,id_vehicule',
+            'kilometrage' => 'required|numeric',
+            'month' => 'required|integer|between:1,12',
+            'year' => 'required|integer|digits:4'
+        ]);
+
+        $vehicule = Vehicule::find($request->id_vehicule);
+
+        ReleveKilo::create([
+            'id_vehicule' => $request->id_vehicule,
+            'kilometrage' => $request->kilometrage,
+            'month' => $request->month,
+            'year' => $request->year
+        ]);
+
+        return redirect()->back();
     }
 
     public function annonce_create_show()

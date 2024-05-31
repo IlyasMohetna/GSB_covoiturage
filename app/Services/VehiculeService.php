@@ -10,12 +10,12 @@ class VehiculeService
 {
     public function getPersonalVehicules($employeeCode)
     {
-        return Vehicule::where('code_employe', $employeeCode)->get();
+        return Vehicule::where('code_employe', $employeeCode)->with('trajets')->get();
     }
 
     public function getServiceVehicules($agencyId)
     {
-        return Vehicule::where('id_agence', $agencyId)->get();
+        return Vehicule::where('id_agence', $agencyId)->with('trajets')->get();
     }
 
     public function getAllServiceVehicules()
